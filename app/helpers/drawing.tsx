@@ -6,8 +6,8 @@ export function drawNumberLine(ctx: CanvasRenderingContext2D) {
   ctx.fillStyle = 'rgb(255,255,255)';
   ctx.lineWidth = 5;
   ctx.beginPath();
-  ctx.moveTo(5,height/2);
-  ctx.lineTo(width-20,height/2);
+  ctx.moveTo(5, height/2);
+  ctx.lineTo(width-20, height/2);
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(width-20, height/2-15);
@@ -19,14 +19,14 @@ export function drawNumberLine(ctx: CanvasRenderingContext2D) {
 }
 
 
-export function drawTick (ctx: CanvasRenderingContext2D, x: number) {
+export function drawTick (ctx: CanvasRenderingContext2D, x: number, color: string) {
   const height = ctx.canvas.height;
   ctx.lineWidth = 2;
-  ctx.strokeStyle = 'rgb(255,255,255)';
-  ctx.fillStyle = 'rgb(255,255,255)';
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
   ctx.beginPath();
-  ctx.moveTo(50*x+10,height/2-15);
-  ctx.lineTo(50*x+10,height/2+15);
+  ctx.moveTo(50*x+10, height/2-15);
+  ctx.lineTo(50*x+10, height/2+15);
   ctx.stroke();
   ctx.font = "bold 24px lusitana";
   ctx.textAlign = "center";
