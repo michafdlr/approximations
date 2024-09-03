@@ -70,7 +70,7 @@ export default function Intervallhalbierungsverfahren() {
 
           <BoundariesButton disabled={radikand === '' || precision === ''} step={step} intervals={intervals} curStates={curStates}/>
 
-          <StepButton disabled={radikand === '' || precision === ''} step={step} setStep={setStep}/>
+          <StepButton disabled={radikand === '' || precision === ''} step={step} setStep={setStep} len={Object.keys(intervals).length}/>
         </div>
         <div className='flex justify-center'>
           <Canvas hidden={radikand !== ''} draw={draw}/>
@@ -128,13 +128,17 @@ function BoundariesButton({disabled, step, intervals, curStates} : {disabled: bo
   )
 }
 
-function StepButton({disabled, step, setStep} : {disabled: boolean, step: number, setStep: any}) {
+function StepButton({disabled, step, setStep, len} : {disabled: boolean, step: number, setStep: any, len: number}) {
   return (
     <button
     disabled={disabled}
     className="w-36 bg-white-600 shadow-white-400 shadow border-gray-600 border-2 text-black rounded-md hover:bg-green-300 hover:scale-105 active:translate-x-1 active:translate-y-1 duration-150 disabled:bg-gray-800 disabled:scale-100 disabled:translate-x-0 disabled:translate-y-0"
     onClick={() => {
-      setStep(step+1)
+      if (step<len) {
+        setStep(step+1)
+      } else {
+        alert('Gewünschte Genauigkeit erreicht. Ändere die Genauigkeit, um den Wert noch genauer zu berechnen.')
+      }
     }
     }
     >
