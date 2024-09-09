@@ -18,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body className={`${inter.className} antialiased`}>
-        <TopNav />
+        <header>
+          <TopNav />
+        </header>
         <div className="relative">{children}</div>
       </body>
     </html>

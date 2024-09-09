@@ -4,7 +4,7 @@ import { HomeIcon } from '@heroicons/react/24/solid';
 
 export default function TopNav() {
   return (
-    <nav className="flex flex-row px-0 py-0 bg-gray-700 sticky top-0 z-50 text-white-600 mb-2">
+    <nav className="flex w-screen px-0 py-0 bg-gray-700 sticky top-0 z-50 text-white-600 mb-2">
       <Link
         className="flex items-start justify-start p-1"
         href="/"

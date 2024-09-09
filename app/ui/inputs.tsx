@@ -13,16 +13,11 @@ export default function InputField ({ id, name, setState, curState, color, disab
       style={{color: color}}
       // hidden={disabled}
       disabled={disabled}
-      min={1}
-      max={100}
+      min={0}
       value={curState}
       onChange={(e) => {
           if (e.target.value === "") {
             setState('');
-          } else if (Number(e.target.value)<1) {
-            setState('1');
-          } else if (Number(e.target.value)>100) {
-            setState('100');
           } else {
             setState(e.target.value);
           }
