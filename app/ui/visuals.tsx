@@ -14,5 +14,5 @@ export default function Canvas(props: any) {
   }, [draw])
   const width = '500px';
 
-  return <canvas width={width} height={'200px'} style={{width: width, height: '200px'}} className="ml-10" ref={canvasRef} hidden={!rest.hidden}/>
+  return <canvas width={width} height={'200px'} style={{width: width, height: '200px'}} className="ml-10" ref={canvasRef} hidden={rest.hidden}/>
 }

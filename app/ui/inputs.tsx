@@ -1,7 +1,3 @@
-'use client';
-
-import { useState } from "react";
-
 export default function InputField ({ id, name, setState, curState, color, disabled }: { id: string, name: string, setState: any, curState: string, color: string, disabled: boolean }) {
   return (
     <div className="flex flex-row">
@@ -11,12 +7,11 @@ export default function InputField ({ id, name, setState, curState, color, disab
       type="number"
       id={id}
       style={{color: color}}
-      // hidden={disabled}
       disabled={disabled}
       min={0}
       value={curState}
       onChange={(e) => {
-          if (e.target.value === "") {
+          if (e.target.value === "" || e.target.value === "-") {
             setState('');
           } else {
             setState(e.target.value);
@@ -24,11 +19,6 @@ export default function InputField ({ id, name, setState, curState, color, disab
         }
       }
       />
-      {/* <button
-      onClick={() => console.log(value)}
-      className="bg-white-600 text-black"
-      >Show input
-      </button> */}
     </div>
   )
 }

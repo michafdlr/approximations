@@ -4,26 +4,6 @@ type CurState = {
   func: (value: any) => void;
 };
 
-// function RadikandButton({disabled, radikand, curStates} : {disabled: boolean, radikand: string, curStates: Array<CurState>}) {
-//   return (
-//     <button
-//     disabled={disabled}
-//     className="w-36 bg-white-600 shadow-white-400 shadow border-gray-600 border-2 text-black rounded-md hover:bg-green-300 hover:scale-105 active:translate-x-1 active:translate-y-1 duration-150 disabled:bg-gray-800 disabled:scale-100 disabled:translate-x-0 disabled:translate-y-0"
-//     onClick={() => {
-//       if (radikand) {
-//         curStates.map(({state, func}) => {
-//           func(!state)
-//         });
-//       } else {
-//         alert('Du musst für Radikand eine Zahl zwischen 1 und 8 eintragen.')
-//       }
-//     }}
-//     >
-//       Radikand akzeptieren
-//     </button>
-//   )
-// }
-
 export function AcceptButton({disabled, step, intervals, curStates} : {disabled: boolean, step: number, intervals: { [key: number]: { left: string, right: string } }, curStates: Array<CurState>}) {
   return (
     <button
@@ -110,11 +90,11 @@ const resetStates = (curStates: Array<CurState>) => {
 }
 
 export const calculateBoundaries = (radikand: string, precision: number) => {
-  const rad = Number(radikand);
+  let rad = Number(radikand);
   const sqrt = Math.sqrt(Number(radikand));
   let left = Math.floor(sqrt);
   if (left === sqrt) {
-    return {1: [left, left]}
+    return {1: {left: left, right: left}};
   }
   let right = left+1;
   let intervals: { [key: number]: object } = {1: {left, right}};

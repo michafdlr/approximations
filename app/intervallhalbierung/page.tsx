@@ -5,6 +5,7 @@ import InputField from "../ui/inputs";
 import Canvas from "../ui/visuals";
 import { drawTick, drawNumberLine } from '../helpers/drawing';
 import { calculateBoundaries, StepButton, ResetButton, AcceptButton } from "../ui/buttons";
+import Table from '../ui/table';
 
 type CurState = {
   name: string;
@@ -76,9 +77,14 @@ export default function Intervallhalbierungsverfahren() {
   const colorLine = 'rgb(255,255,255)';
 
   useEffect(() => {
-    setIntervals(
-      calculateBoundaries(radikand, Number(precision))
-    );
+    if (Number(radikand) >= 0) {
+      setIntervals(
+        calculateBoundaries(radikand, Number(precision))
+      );
+    } else {
+      alert('Radikand muss positiv oder 0 sein!')
+      setRadikand('');
+    }
   }, [radikand, precision])
 
   let draw = (ctx: CanvasRenderingContext2D) => {
@@ -86,18 +92,20 @@ export default function Intervallhalbierungsverfahren() {
     const ri = Number(right);
     const ra = Number (radikand);
     const start = le-2/(2**(step-1))
-    drawNumberLine(ctx, colorLine);
-    for (let i=0; i<10; i++) {
-      drawTick(ctx, start, i/(2**(step-1)), colorLine, step, true);
-    }
-    if (radikand) {
-      drawTick(ctx, start, Math.sqrt(ra)-start, colorRad ,step, false);
-    }
-    if (left) {
-      drawTick(ctx, start, le-start, colorLeft, step, true);
-    }
-    if (right) {
-      drawTick(ctx, start, ri-start, colorRight, step, true);
+    if(le<ri){
+      drawNumberLine(ctx, colorLine);
+      for (let i=0; i<10; i++) {
+        drawTick(ctx, start, i/(2**(step-1)), colorLine, step, true);
+      }
+      if (radikand) {
+        drawTick(ctx, start, Math.sqrt(ra)-start, colorRad ,step, false);
+      }
+      if (left) {
+        drawTick(ctx, start, le-start, colorLeft, step, true);
+      }
+      if (right) {
+        drawTick(ctx, start, ri-start, colorRight, step, true);
+      }
     }
   }
 
@@ -105,7 +113,7 @@ export default function Intervallhalbierungsverfahren() {
   return (
       <div className="flex min-h-screen flex-col p-2">
         <h1 className="font-bold text-xl text-center underline mb-14">Intervallhalbierungsverfahren</h1>
-        <p className="mb-10">Hier kommt eine Erklärung.</p>
+        <p className="mb-10 text-justify">Wähle im Feld "Radikand" den nicht negativen Wert, von die Wurzel berechnet werden soll. Stelle anschließend die Genauigkeit ein, indem du eine positive ganze Zahl eingibst. Die Genauigkeit gibt dabei an, auf wie viele Nachkommastellen genau die Wurzel berechnet werden soll. Klicke dann auf den "Akzeptieren" Button. Wenn du auf den "Nächster Schritt" Button klickst, wird ein Intervallhalbierungsschritt vollzogen. Du siehst dies an der Zahlengeraden und in der Tabelle, in der die jeweiligen Grenzen angezeigt werden. Um den Radikanden oder die Genauigkeit zu ändern klicke den "Zurücksetzen" Button.</p>
         <h2 className="font-bold text-lg text-center mb-14 italic">Schritt {step}</h2>
         <div className="flex flex-col gap-2 mb-20">
           <InputField id="sqrt" name="Radikand" setState={setRadikand} curState={radikand} color="red" disabled={radDisabled}/>
@@ -118,8 +126,9 @@ export default function Intervallhalbierungsverfahren() {
 
           <ResetButton curStates={curStates} />
         </div>
-        <div className='flex justify-center'>
-          <Canvas hidden={radikand !== '' && left !== ''} draw={draw}/>
+        <div className='flex flex-col justify-center items-center'>
+          <Canvas hidden={radikand === '' || left === '' || left === right} draw={draw}/>
+          <Table data={intervals} step={step}/>
         </div>
       </div>
   );
