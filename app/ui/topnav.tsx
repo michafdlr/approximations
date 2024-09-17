@@ -10,17 +10,7 @@ export default function TopNav() {
         href="/"
         key={"home"}
       >
-        {/* <div className="w-40 text-white flex justify-center items-center text-white-600">
-        <Image
-            src="/sqrt.png"
-            width={40}
-            height={40}
-            style={{filter: 'invert(1)'}}
-            // className="md:block"
-            alt="Square-root sign"
-          />
-        </div> */}
-        <HomeIcon className="size-8 text-white-600" />
+        <HomeIcon className="size-8 text-white-600 hover:text-blue-400" />
       </Link>
       <div className="flex grow flex-row justify-end space-x-0">
         {/* <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div> */}

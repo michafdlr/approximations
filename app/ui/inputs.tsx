@@ -11,7 +11,7 @@ export default function InputField ({ id, name, setState, curState, color, disab
       min={0}
       value={curState}
       onChange={(e) => {
-          if (e.target.value === "" || e.target.value === "-") {
+          if (e.target.value === "") {
             setState('');
           } else {
             setState(e.target.value);
