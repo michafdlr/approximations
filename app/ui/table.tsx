@@ -18,8 +18,8 @@ export default function Table({ data, step }: {data: object, step: number}) {
             return(
             <tr key={key} className="odd:bg-white even:bg-gray-600 border-b-2 border-b-white-400 border-r-white-400 border-r-2">
               <td className='border-b-2 border-b-white-400 border-r-white-400 border-r-2'>{key}</td>
-              <td className='border-b-2 border-b-white-400 border-r-white-400 border-r-2'>{value.left}</td>
-              <td className='border-b-2 border-b-white-400 border-r-white-400 border-r-2'>{value.right}</td>
+              <td className='border-b-2 border-b-white-400 border-r-white-400 border-r-2 font-bold' style={{color: 'rgb(255,190,80)'}}>{value.left}</td>
+              <td className='border-b-2 border-b-white-400 border-r-white-400 border-r-2 font-bold' style={{color: 'rgb(10,150,255)'}}>{value.right}</td>
             </tr>
             )
           }

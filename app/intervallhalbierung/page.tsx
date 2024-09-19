@@ -6,6 +6,7 @@ import Canvas from "../ui/visuals";
 import { drawTick, drawNumberLine } from '../helpers/drawing';
 import { calculateBoundaries, StepButton, ResetButton, AcceptButton } from "../ui/buttons";
 import Table from '../ui/table';
+import Threshold from '../ui/threshold';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 
@@ -128,10 +129,10 @@ export default function Intervallhalbierungsverfahren() {
           Beim Intervallhalbierungsverfahren handelt es sich um ein Näherungsverfahren zur Berechnung von Quadratwurzeln. Die Idee des Verfahrens ist es, durch das Halbieren eines Intervalls, in dem der Wert der Wurzel liegt, den Wert immer genauer anzunähern. Zu Beginn müssen dabei zwei aufeinanderfolgende natürliche Zahlen bestimmt werden, zwischen denen der Wert der Wurzel liegt. Dies gelingt durch "Probieren". Die linke Grenze dieses ersten Intervalls findet man, indem man die größte natürliche Zahl bestimmt, deren Quadrat kleiner als der Radikand ist. Die rechte Grenze ist dann die kleinste natürliche Zahl, deren Quadrat größer als der Radikand ist.
         </p>
         <p className="mb-2 text-justify">
-          <Latex>{"Betrachten wir als Beispiel $\\sqrt2$. Der Radikand ist 2. Im ersten Schritt des Intervallhalbierungsverfahrens suchen wir als linke Grenze die größte natürliche Zahl, deren Quadrat kleiner als der Radikand (hier: 2) ist. Die rechte Grenze ist entsprechend die linke Grenze plus 1. Die linke Grenze in diesem Beispiel ist 1, denn $1^2=1<2$ und die rechte Grenze 2, denn $2^2=4>2$. Da zwischen 1 und 2 keine weiteren ganzen Zahlen liegen, haben wir das erste Intervall $[1; 2]$ gefunden."}</Latex>
+          <Latex>Betrachten wir als Beispiel $\sqrt2$. Der Radikand ist 2. Im ersten Schritt des Intervallhalbierungsverfahrens suchen wir als linke Grenze die größte natürliche Zahl, deren Quadrat kleiner als oder genau der Radikand (hier: 2) ist. Die rechte Grenze ist entsprechend die linke Grenze plus 1. Die linke Grenze in diesem Beispiel ist 1, denn $1^2=1\le2$ und die rechte Grenze 2, denn $2^2=4\ge 2$. Damit haben wir das erste Intervall $[1; 2]$ gefunden.</Latex>
         </p>
         <p className="mb-8 text-justify">
-          <Latex>{"Für den nächsten Schritt halbieren wir das vorher gefundene Intervall $[1; 2]$ in der Mitte und erhalten als Intervallmitte $\\frac{1+2}{2}=1{,}5$. Da $1{,}5^2=2{,}25>2$ ist, ändert sich die rechte Grenze von 2 auf 1,5. D.h. das Intervall nach dem zweiten Schritt ist $[1; 1{,}5]$. Wie zu erkennen ist, hat sich die Länge des Intervalls halbiert, daher der Name Intervallhalbierungsverfahren.Analog fährt man in den folgenden Schritten fort, bis man die gewünschte Genauigkeit erreicht hat."}</Latex>
+          Für den nächsten Schritt halbieren wir das vorher gefundene Intervall <Latex>$[1; 2]$</Latex> in der Mitte und erhalten als Intervallmitte <Latex>{"$\\frac{1+2}{2}=1,5$"}</Latex>. Da <Latex>$1,5^2=2,25\ge2$</Latex> ist, ändert sich die rechte Grenze von 2 auf 1,5. D.h. das Intervall nach dem zweiten Schritt ist <Latex>$[1; 1,5]$</Latex>. Wie zu erkennen ist, hat sich die Länge des Intervalls halbiert, daher der Name Intervallhalbierungsverfahren.Analog fährt man in den folgenden Schritten fort, bis man die gewünschte Genauigkeit erreicht hat.
         </p>
         <h2 className="font-bold text-lg text-center mb-6">Nutzung des Programms</h2>
         <p className="mb-10 text-justify">
@@ -149,6 +150,9 @@ export default function Intervallhalbierungsverfahren() {
 
           <ResetButton curStates={curStates} />
         </div>
+        <div className='flex flex-col mt-10'>
+          <Threshold hidden={radikand === ''} intervals={intervals} radikand={radikand} step={step} colorLeft={colorLeft} colorRight={colorRight}/>
+        </div>
         <div className='flex flex-col justify-center items-center'>
           <Canvas hidden={radikand === '' || left === '' || left === right} draw={draw}/>
           <Table data={intervals} step={step}/>
@@ -156,18 +160,3 @@ export default function Intervallhalbierungsverfahren() {
       </div>
   );
 }
-
-// const adjustPrecision = (precision: string) => {
-//   if (precision !== '') {
-//     const precisionNum = Number(precision)
-//     if (precisionNum<=0) {
-//       return '1'
-//     } else if (precisionNum === Math.floor(precisionNum)) {
-//       return precisionNum.toString()
-//     } else {
-//       return (Math.floor(precisionNum)+1).toString()
-//     }
-//   } else {
-//     return ''
-//   }
-// }
