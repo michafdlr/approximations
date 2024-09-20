@@ -91,7 +91,7 @@ const resetStates = (curStates: Array<CurState>) => {
 
 export const calculateBoundaries = (radikand: string, precision: number) => {
   let rad = Number(radikand);
-  const sqrt = Math.sqrt(Number(radikand));
+  const sqrt = Math.sqrt(rad);
   let left = Math.floor(sqrt);
   if (left === sqrt) {
     return {1: {left: left, right: left}};
@@ -108,6 +108,41 @@ export const calculateBoundaries = (radikand: string, precision: number) => {
       right = mid;
     } else {
       left = mid;
+    }
+    intervals[counter] = {
+      left,
+      right
+    };
+    counter++;
+  }
+  return intervals
+}
+
+export const calculateBoundariesHeron = (radikand: string, precision: number, start: number) => {
+  let rad = Number(radikand);
+  const sqrt = Math.sqrt(rad);
+  let left, right;
+  if (rad/start>start) {
+    right = rad/start;
+    left = start
+  } else {
+    left = rad/start;
+    right = start;
+  }
+  if (start === sqrt) {
+    return {1: {left: left, right: left}}
+  }
+  let intervals: { [key: number]: object } = {1: {left, right}};
+  let counter = 2;
+  while (Math.floor(right*10**precision) !== Math.floor(left*10**precision)) {
+    let a: number = (left + right)/2;
+    let b = rad/a;
+    if (a > b) {
+      left = b;
+      right = a;
+    } else {
+      left = a;
+      right = b;
     }
     intervals[counter] = {
       left,

@@ -40,5 +40,36 @@ export function drawTick (ctx: CanvasRenderingContext2D, start: number, i: numbe
     ctx.rotate(-Math.PI/2);
     ctx.translate(-(x+width/10*i*2**(step-1)), -(height/2+15));
   }
+}
 
+export function drawRectangle (ctx: CanvasRenderingContext2D, length: number, width: number, radikand: string, colorLength: string, colorWidth: string) {
+  const canvWidth = ctx.canvas.width;
+  const canvHeight = ctx.canvas.height;
+  const scale = Math.min(canvWidth/width, canvHeight/length);
+  ctx.lineWidth = 3;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.clearRect(0, 0, canvWidth, canvHeight);
+  ctx.fillStyle = "rgb(255 255 255 / 50%)";
+  ctx.fillRect(3, 3, scale*width-8, scale*length-8);
+  ctx.fill();
+  ctx.strokeStyle = colorWidth;
+  ctx.beginPath();
+  ctx.moveTo(3,3);
+  ctx.lineTo(scale*width-6, 3);
+  ctx.moveTo(3,scale*length-6);
+  ctx.lineTo(scale*width-6,scale*length-6);
+  ctx.stroke();
+  ctx.strokeStyle = colorLength;
+  ctx.beginPath();
+  ctx.moveTo(3,3);
+  ctx.lineTo(3, scale*length-6);
+  ctx.moveTo(scale*width-6, 3);
+  ctx.lineTo(scale*width-6,scale*length-6);
+  ctx.stroke();
+  ctx.font = "bold 30px lusitana";
+  ctx.textAlign = "start";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "red";
+  ctx.fillText(radikand, scale*width/2, scale*length/2);
 }
