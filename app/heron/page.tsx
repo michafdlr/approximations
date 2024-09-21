@@ -22,6 +22,7 @@ export default function HeronVerfahren() {
   const [left, setLeft] = useState('');
   const [right, setRight] = useState('');
   const [step, setStep] = useState(1);
+  const [start, setStart] = useState('1');
   const [radDisabled, setRadDisabled] = useState(false);
   const [precisionDisabled, setPrecisionDisabled] = useState(false);
   const [acceptDisabled, setAcceptDisabled] = useState(false);
@@ -36,6 +37,11 @@ export default function HeronVerfahren() {
       name: 'right',
       state: right,
       func: setRight
+    },
+    {
+      name: 'start',
+      state: start,
+      func: setStart,
     },
     {
       name: 'rad',
@@ -74,20 +80,17 @@ export default function HeronVerfahren() {
     },
   ]
 
-  const colorRad = 'rgb(255,0,0)';
   const colorLeft = 'rgb(255,190,80)';
   const colorRight = 'rgb(10,150,255)';
-  const colorLine = 'rgb(255,255,255)';
 
   useEffect(() => {
-    if (Number(radikand) >= 0) {
+    if (Number(radikand) >= 0 && start !== '' && Number(start)>0) {
       setIntervals(
-        calculateBoundariesHeron(radikand, Math.min(Math.floor(Number(precision)), 10), 1)
+        calculateBoundariesHeron(radikand, Math.min(Math.floor(Number(precision)), 10), Number(start))
       );
     } else {
       alert('Radikand muss positiv oder 0 sein und Genauigkeit eine ganze Zahl größer als 0!');
       setRadikand('');
-      setPrecision('');
     }
     if (precision !== '' && Number(precision) > 10) {
       setPrecision('10');
@@ -97,6 +100,12 @@ export default function HeronVerfahren() {
       setPrecision(Math.floor(Number(precision)).toString());
     }
   }, [radikand, precision])
+
+  useEffect(()=>{
+    if (start !== '' && Number(start)<=0) {
+      setStart('1');
+    }
+  }, [start])
 
   let draw = (ctx: CanvasRenderingContext2D) => {
     const le = Number(left);
@@ -126,6 +135,7 @@ export default function HeronVerfahren() {
         <div className="flex flex-col gap-2 mb-20">
           <InputField id="sqrt" name="Radikand" setState={setRadikand} curState={radikand} color="red" disabled={radDisabled}/>
           <InputField id="precision" name="Genauigkeit" setState={setPrecision} curState={precision} color='black' disabled={precisionDisabled}/>
+          <InputField id="start" name="Startwert" setState={setStart} curState={start} color='black' disabled={precisionDisabled}/>
         </div>
         <div className='flex flex-row gap-2'>
           <AcceptButton disabled={(radikand === '' || precision === '') || acceptDisabled} step={step} intervals={intervals} curStates={curStates}/>

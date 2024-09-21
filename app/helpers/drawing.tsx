@@ -68,7 +68,7 @@ export function drawRectangle (ctx: CanvasRenderingContext2D, length: number, wi
   ctx.lineTo(scale*width-6,scale*length-6);
   ctx.stroke();
   ctx.font = "bold 30px lusitana";
-  ctx.textAlign = "start";
+  ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = "red";
   ctx.fillText(radikand, scale*width/2, scale*length/2);

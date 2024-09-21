@@ -81,6 +81,8 @@ const resetStates = (curStates: Array<CurState>) => {
       func(1);
     } else if (name === 'intervals') {
       func({});
+    } else if (name === 'start') {
+      func('1');
     } else if (name === "radDisabled" || name === 'acceptDisabled' || name === 'precisionDisabled') {
       func(false);
     } else {
