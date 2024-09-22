@@ -6,7 +6,7 @@ import Canvas from "../ui/visuals";
 import { drawTick, drawNumberLine } from '../helpers/drawing';
 import { calculateBoundaries, StepButton, ResetButton, AcceptButton } from "../ui/buttons";
 import Table from '../ui/table';
-import Threshold from '../ui/threshold';
+import { Threshold } from '../ui/threshold';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 
@@ -151,11 +151,11 @@ export default function Intervallhalbierungsverfahren() {
           <ResetButton curStates={curStates} />
         </div>
         <div className='flex flex-col mt-10'>
-          <Threshold hidden={radikand === ''} intervals={intervals} radikand={radikand} step={step} colorLeft={colorLeft} colorRight={colorRight}/>
+          <Threshold hidden={radikand === '' || precision === ''} intervals={intervals} radikand={radikand} step={step} colorLeft={colorLeft} colorRight={colorRight}/>
         </div>
         <div className='flex flex-col justify-center items-center'>
           <Canvas hidden={radikand === '' || left === '' || left === right} draw={draw}/>
-          <Table data={intervals} step={step}/>
+          <Table data={intervals} step={step} hidden={radikand === '' || precision === ''} heron={false}/>
         </div>
       </div>
   );
