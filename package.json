@@ -10,10 +10,16 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
-    "next": "14.2.6",
-    "react": "^18",
-    "react-dom": "^18",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
+    "next": "15.0.0-rc.0",
+    "react": "19.0.0-rc-2d16326d-20240930",
+    "react-dom": "19.0.0-rc-2d16326d-20240930",
     "react-latex-next": "^3.0.0"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   },
   "devDependencies": {
     "@types/node": "^20",
